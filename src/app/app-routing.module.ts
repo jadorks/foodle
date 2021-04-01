@@ -170,6 +170,10 @@ const routes: Routes = [
   {
     path: 'modal-subscribe',
     loadChildren: () => import('./pages/modal-subscribe/modal-subscribe.module').then( m => m.ModalSubscribePageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   }
 ];
 
