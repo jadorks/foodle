@@ -23,6 +23,11 @@
     </ion-item>
   </ion-card-title>
   <ion-card-content class="ion-no-padding">
+
+    <div class="content-container">
+      <p *ngIf="text">{{ text }}</p>
+      <img *ngIf="image" [src]="image" />
+    </div>
     <div class="card-stats">
       <div class="icon-container">
         <div class="stat">
@@ -34,11 +39,13 @@
           <ion-label>{{ comments }}</ion-label>
         </div>
       </div>
+      <div class="save-container">
+        <div class="save">
+          <ion-icon color="medium" name="bookmark-outline"></ion-icon>
+        </div>
+      </div>
     </div>
-    <div class="content-container">
-      <p *ngIf="text">{{ text }}</p>
-      <img *ngIf="image" [src]="image" />
-    </div>
+    
   </ion-card-content>
 </ion-card>
 <div *ngIf="separator" class="separator ion-margin-vertical"></div>

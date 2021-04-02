@@ -25,6 +25,28 @@
   }
 }
 
+.borders {
+  border-top: 1px solid rgba(228, 228, 228, 0.6);
+  border-bottom: 1px solid rgba(228, 228, 228, 0.6);
+
+  h5 {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    text-align: center;
+    color: #151522;
+    margin: 13px 0 6px;
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    color: #666666;
+    margin: 0 0 13px;
+  }
+}
+
 .action-button {
   --border-radius: 6px;
   --box-shadow: none !important;
