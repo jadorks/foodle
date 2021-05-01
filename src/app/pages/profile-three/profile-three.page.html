@@ -1,8 +1,5 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>Profile</ion-title>
     <ion-buttons slot="end">
       <ion-button>
@@ -60,20 +57,17 @@
   <ion-row class="ion-padding-bottom">
     <ion-col>
       <ion-segment [(ngModel)]="valueType">
-				<ion-segment-button value="article">
-					Articles
+				<ion-segment-button value="posts">
+					Posts
 				</ion-segment-button>
-				<ion-segment-button value="photo">
-					Photos
-				</ion-segment-button>
-				<ion-segment-button value="favorite">
-					Favorites
+				<ion-segment-button value="saved">
+					Saved
 				</ion-segment-button>
 			</ion-segment>
     </ion-col>
   </ion-row>
   <div [ngSwitch]="valueType">
-    <ion-row *ngSwitchCase="'article'" class="ion-no-padding">
+    <!-- <ion-row *ngSwitchCase="'article'" class="ion-no-padding">
       <ion-col size="6" *ngFor="let item of articles" class="ion-no-padding">
         <app-small-blog-card
         [text]="item.title"
@@ -82,13 +76,13 @@
         [color]="item.color"
         ></app-small-blog-card>
       </ion-col>
-    </ion-row>
-    <ion-row *ngSwitchCase="'photo'">
+    </ion-row> -->
+    <ion-row *ngSwitchCase="'posts'">
       <ion-col size="4" *ngFor="let photo of photos">
         <img class="image-element" [src]="photo" alt="">
       </ion-col>
     </ion-row>
-    <ion-row *ngSwitchCase="'favorite'">
+    <ion-row *ngSwitchCase="'saved'">
       <ion-col size="6" *ngFor="let item of favorites">
         <app-card-favorite-news [image]="item.image" [text]="item.text"></app-card-favorite-news>
       </ion-col>

@@ -12,4 +12,8 @@ export class SearchPage implements OnInit {
   ngOnInit() {
   }
 
+  public onSearchChange(ev){
+    console.log('searching');
+  }
+
 }

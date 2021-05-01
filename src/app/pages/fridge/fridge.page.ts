@@ -12,4 +12,8 @@ export class FridgePage implements OnInit {
   ngOnInit() {
   }
 
+  public onSearchChange(ev){
+    console.log('searching');
+  }
+
 }
