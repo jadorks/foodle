@@ -4,8 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule )
   },
   {
     path: 'feed-one',
@@ -174,6 +173,18 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'fridge',
+    loadChildren: () => import('./pages/fridge/fridge.module').then( m => m.FridgePageModule)
+  },
+  {
+    path: 'new-post',
+    loadChildren: () => import('./pages/new-post/new-post.module').then( m => m.NewPostPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
   }
 ];
 
