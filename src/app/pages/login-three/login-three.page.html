@@ -17,7 +17,7 @@
     </ion-row>
     <ion-row class="ion-padding-top">
       <ion-col>
-        <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
           <ion-item lines="none" class="ion-no-padding">
             <ion-label class="input-label" position="stacked"
               >Email Address</ion-label
@@ -54,9 +54,6 @@
             <ng-container *ngIf="loginForm.get('password').errors.required">
               Password is required
             </ng-container>
-            <ng-container *ngIf="loginForm.get('password').errors.invalidPassword">
-              {{loginForm.get('password').errors.message}}
-            </ng-container>
           </div>
 
           <ion-button
@@ -74,8 +71,14 @@
     </ion-row>
     <ion-row>
       <ion-col class="ion-text-center ion-padding-bottom">
-        <a class="link" [routerLink]="">Forgot password?</a>
+        <a class="link" [routerLink]="['/register']">Need an account?</a>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center ion-padding-bottom">
+        <a class="link" [routerLink]="['/forgot-pass']">Forgot password?</a>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 </ion-content>
