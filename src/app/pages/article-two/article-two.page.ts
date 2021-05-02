@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { PostService, Post } from "../../services/post.service";
 
 @Component({
   selector: 'app-article-two',
@@ -6,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-two.page.scss'],
 })
 export class ArticleTwoPage implements OnInit {
+
+  date: any = "";
+
+  id : any = "";
+
+  post: any = {}
+
   background = {
     backgroundImage:
-      'url(https://images.unsplash.com/photo-1531554694128-c4c6665f59c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80)',
+      'url(http://127.0.0.1:8000/media/post_pics/9p69umou7lozxg3wk2t.png)',
   };
 
   article = {
@@ -53,7 +62,41 @@ export class ArticleTwoPage implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private activatedRoute: ActivatedRoute, private postService: PostService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
+  }
+
+  ionViewWillEnter(){
+    this.postService.getPost(this.id).subscribe(
+      (data: any) => {
+        this.post = data;
+        this.date = this.convertDate(data.date_posted)
+      }
+    )
+  }
+
+  convertDate(date){
+    return new Date(Number(date));
+  }
+
+  async likePost(){
+    this.postService.LikePost(this.id, 'like').subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
+  }
+
+  async unlikePost(){
+    this.postService.LikePost(this.id, 'unlike').subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
+  }
+
+
 }

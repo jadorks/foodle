@@ -3,7 +3,7 @@
     <ion-title>Profile</ion-title>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -28,7 +28,7 @@
       </div>
     </ion-col>
   </ion-row>
-  <ion-row  class="borders">
+  <!-- <ion-row  class="borders">
     <ion-col size="4" class="ion-no-padding">
       <h5>485</h5>
       <p>Posts</p>
@@ -41,8 +41,8 @@
       <h5>12k</h5>
       <p>Followers</p>
     </ion-col>
-  </ion-row>
-  <ion-row>
+  </ion-row> -->
+  <!-- <ion-row>
     <ion-col size="6" class="ion-padding-vertical">
         <ion-button class="action-button" expand="block" fill="solid" color="primary">
           <span>Follow</span>
@@ -53,15 +53,12 @@
         <span>Message</span>
     </ion-button>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
   <ion-row class="ion-padding-bottom">
     <ion-col>
       <ion-segment [(ngModel)]="valueType">
 				<ion-segment-button value="posts">
 					Posts
-				</ion-segment-button>
-				<ion-segment-button value="saved">
-					Saved
 				</ion-segment-button>
 			</ion-segment>
     </ion-col>
@@ -80,11 +77,6 @@
     <ion-row *ngSwitchCase="'posts'">
       <ion-col size="4" *ngFor="let photo of photos">
         <img class="image-element" [src]="photo" alt="">
-      </ion-col>
-    </ion-row>
-    <ion-row *ngSwitchCase="'saved'">
-      <ion-col size="6" *ngFor="let item of favorites">
-        <app-card-favorite-news [image]="item.image" [text]="item.text"></app-card-favorite-news>
       </ion-col>
     </ion-row>
   </div>

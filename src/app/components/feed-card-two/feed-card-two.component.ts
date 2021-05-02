@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PostService } from "../../services/post.service";
 
 @Component({
   selector: 'app-feed-card-two',
@@ -16,7 +17,7 @@ export class FeedCardTwoComponent implements OnInit {
   @Input() comments: number;
   @Input() separator: boolean;
 
-  constructor() { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {}
 

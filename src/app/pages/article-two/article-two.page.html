@@ -1,17 +1,17 @@
 <ion-content [fullscreen]="true">
-<ion-grid class="ion-no-padding ion-no-margin background-opts" [ngStyle]="background">
+<ion-grid class="ion-no-padding ion-no-margin background-opts" [ngStyle]="{'background-image': 'url(' + post.image + ')'}">
   <ion-row>
     <ion-col class="header-container">
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+            <ion-back-button></ion-back-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <div class="title-container ion-padding">
-        <p>{{ article.category }}</p>
-        <h1>{{ article.title }}</h1>
+        <!-- <p>{{ article.category }}</p> -->
+        <h1>{{ post.caption }}</h1>
       </div>
     </ion-col>
   </ion-row>
@@ -26,8 +26,8 @@
           />
         </ion-avatar>
         <ion-label>
-          <h2 class="item-title">{{ article.author }}</h2>
-          <p class="item-subtitle">{{ article.date | humanizeDate }}</p>
+          <h2 class="item-title">{{ post.user }}</h2>
+          <p class="item-subtitle">{{ date | date:'short'  }}</p>
         </ion-label>
         <ion-button
           class="circle-btn"
@@ -43,25 +43,25 @@
           ></ion-icon>
         </ion-button>
       </ion-item>
-      <div class="article-footer">
+      <!-- <div class="article-footer">
         <div>
           <ul>
             <li>
-              <ion-item lines="none">
+              <ion-item lines="none" (click)="likePost()">
                 <ion-icon color="medium" name="heart-outline"></ion-icon>
-                <ion-label>{{ article.likes }}</ion-label>
+                <ion-label>200</ion-label>
               </ion-item>
             </li>
             <li>
               <ion-item lines="none">
                 <ion-icon color="medium" name="chatbubble-outline"></ion-icon>
-                <ion-label>{{ article.comments }}</ion-label>
+                <ion-label>300</ion-label>
               </ion-item>
             </li>
             <li>
               <ion-item lines="none">
                 <ion-icon color="medium" name="bookmark-outline"></ion-icon>
-                <ion-label>{{ article.saved }}</ion-label>
+                <ion-label>400</ion-label>
               </ion-item>
             </li>
           </ul>
@@ -76,47 +76,12 @@
         >
           <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
         </ion-button>
-      </div>
+      </div> -->
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
-      <p class="text">{{ article.short }}</p>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <app-article-quote
-        [text]="quote.text"
-        [author]="quote.author"
-        [from]="quote.from"
-      ></app-article-quote>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-text>Comments</ion-text>
-        <ion-button
-          slot="end"
-          fill="clear"
-          size="small"
-          shape="round"
-          color="primary"
-        >
-          Write a comment
-        </ion-button>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <app-article-comment *ngFor="let comment of comments"
-      [avatar]="comment.avatar"
-      [author]="comment.author"
-      [date]="comment.date | humanizeDate"
-      [comment]="comment.comment"
-      ></app-article-comment>
+      <pre class="text">{{ post.recipe }}</pre>
     </ion-col>
   </ion-row>
 </ion-grid>

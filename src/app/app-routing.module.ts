@@ -30,6 +30,16 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'details/:id',
+    loadChildren: () => import('./pages/article-two/article-two.module').then( m => m.ArticleTwoPageModule ),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'profile/:id',
+    loadChildren: () => import('./pages/profile-three/profile-three.module').then( m => m.ProfileThreePageModule ),
+    canLoad: [AuthGuard]
+  },
+  {
     path: 'feed-one',
     loadChildren: () => import('./pages/feed-one/feed-one.module').then( m => m.FeedOnePageModule)
   },
@@ -217,6 +227,10 @@ const routes: Routes = [
   {
     path: 'forgot-pass',
     loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
+  },
+  {
+    path: 'other-user',
+    loadChildren: () => import('./pages/other-user/other-user.module').then( m => m.OtherUserPageModule)
   },
 ];
 

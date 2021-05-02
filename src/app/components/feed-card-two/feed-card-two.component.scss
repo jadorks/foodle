@@ -32,6 +32,7 @@ ion-card-content {
   flex-direction: row;
   align-items: center;
   width: 100%;
+  z-index: 9999;
 
   .icon-container{
     display: flex;

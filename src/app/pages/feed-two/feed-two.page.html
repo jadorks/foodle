@@ -15,16 +15,15 @@
         size-md="6"
         size-lg="4"
         size-lg="4"
-        *ngFor="let item of feeds"
+        *ngFor="let item of posts"
       >
-        <app-feed-card-two
-          [avatar]="item.avatar"
-          [name]="item.name"
-          [date]="item.date | humanizeDate"
-          [text]="item.text"
+        <app-feed-card-two [routerLink]="['/details', item.id]"
+          
+          [name]="item.user"
+          [date]="item.date_posted"
+          [text]="item.caption"
           [image]="item.image"
-          [likes]="item.likes"
-          [comments]="item.comments"
+          [likes]="200"
           [separator]="true"
         >
         </app-feed-card-two>

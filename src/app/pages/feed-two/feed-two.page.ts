@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService, Post } from "../../services/post.service";
 
 @Component({
   selector: 'app-feed-two',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feed-two.page.scss'],
 })
 export class FeedTwoPage implements OnInit {
+
+  date: any = "";
+
+  posts: Post[] = [];
 
   feeds = [
     {
@@ -37,9 +42,16 @@ export class FeedTwoPage implements OnInit {
     }
   ];
   
-  constructor() { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter(){
+    this.postService.getAllPosts().subscribe((posts: Post[]) => {
+      this.posts = posts;
+    })
   }
 
 }

@@ -2,7 +2,7 @@
   <ion-card-title class="ion-padding-bottom">
     <ion-item lines="none" class="ion-no-padding">
       <ion-avatar slot="start">
-        <img [src]="avatar" />
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=124&q=80" />
       </ion-avatar>
       <ion-label>
         <h2 class="item-title">{{ name }}</h2>
@@ -28,23 +28,23 @@
       <p *ngIf="text">{{ text }}</p>
       <img *ngIf="image" [src]="image" />
     </div>
-    <div class="card-stats">
+    <!-- <div class="card-stats">
       <div class="icon-container">
         <div class="stat">
-          <ion-icon color="danger" name="heart-outline"></ion-icon>
-          <ion-label>{{ likes }}</ion-label>
-        </div>
-        <div class="stat">
-          <ion-icon color="medium" name="chatbubble-outline"></ion-icon>
-          <ion-label>{{ comments }}</ion-label>
+          <ion-item (click)="like()" lines="none">
+            <ion-icon color="danger" name="heart-outline"></ion-icon>
+            <ion-label>{{ likes }}</ion-label>
+          </ion-item>
         </div>
       </div>
       <div class="save-container">
         <div class="save">
-          <ion-icon color="medium" name="bookmark-outline"></ion-icon>
+          <ion-item lines="none" (click)="save()">
+            <ion-icon color="medium" name="bookmark-outline"></ion-icon>
+          </ion-item>
         </div>
       </div>
-    </div>
+    </div> -->
     
   </ion-card-content>
 </ion-card>

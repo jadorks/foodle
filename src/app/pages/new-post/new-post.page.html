@@ -8,5 +8,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding-horizontal">
+  <ion-grid class="ion-padding-horizontal">
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+          <ion-item>
+            <ion-label position="floating" class="ion-no-padding">Caption <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="caption" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" class="ion-no-padding">Recipe <ion-text color="danger">*</ion-text></ion-label>
+            <ion-textarea required formControlName="recipe" rows="15" type="text"></ion-textarea>
+          </ion-item>
+          <ion-item class="ion-no-padding">
+            <ion-button (click)="chooseOrTakePicture()" expand="block" fill="clear" shape="round">
+              Choose Image
+            </ion-button>
+          </ion-item>
+          
+          <ion-button block color="primary" type="submit" [disabled]="postForm.invalid">
+            Create Post
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
