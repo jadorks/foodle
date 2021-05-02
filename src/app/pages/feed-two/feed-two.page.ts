@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PostService, Post } from "../../services/post.service";
 
 @Component({
@@ -42,13 +43,21 @@ export class FeedTwoPage implements OnInit {
     }
   ];
   
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private activatedRoute: ActivatedRoute) {
+    activatedRoute.params.subscribe(val => {
+      this.getPosts();
+    })
+   }
 
   ngOnInit() {
 
   }
 
   ionViewWillEnter(){
+    this.getPosts();
+  }
+
+  async getPosts(){
     this.postService.getAllPosts().subscribe((posts: Post[]) => {
       this.posts = posts;
     })

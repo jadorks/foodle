@@ -85,6 +85,51 @@ export class PostService {
       })
     )
   }
+
+  public currentUserPosts(){
+    const httpOptions = {
+      method: 'POST',
+      headers: new HttpHeaders({
+        Authorization: 'Token ' + this.token,
+      }),
+    };
+
+    return this.http.get(this.baseURL + '/users/posts/', httpOptions).pipe(
+      map((data: any) => {
+        return data.map((post) => {
+          let old = post;
+          old.date_posted = moment(new Date(Number(old.date_posted))).fromNow();
+          return new Post(old);
+        });
+      })
+    )
+  }
+
+  public otherUserPosts(id){
+
+    return this.http.get(this.baseURL + '/users/' + id).pipe(
+      map((data:any) => {
+        return data.map((post) => {
+          let old = post;
+          old.date_posted = moment(new Date(Number(old.date_posted))).fromNow();
+          return new Post(old);
+        })
+      })
+    )
+  }
+
+
+  public findPost(search){
+    return this.http.get(this.baseURL + '/?search=' + search).pipe(
+      map((data: any) => {
+        return data.map((post) => {
+          let old = post;
+          old.date_posted = moment(new Date(Number(old.date_posted))).fromNow();
+          return new Post(old);
+        });
+      })
+    )
+  }
 }
 
 export class Post{

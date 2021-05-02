@@ -1,9 +1,84 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>other-user</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class="ion-padding-horizontal">
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <div class="profile">
+        <ion-avatar>
+          <img
+            src="../../../assets/default_user.png"
+            alt=""
+            srcset=""
+          />
+        </ion-avatar>
+        <h4 class="ion-margin-vertical">{{ user.username }}</h4>
+        <p>
+          {{ user.email }}
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-row  class="borders">
+    <ion-col size="4" class="ion-no-padding">
+      <h5>485</h5>
+      <p>Posts</p>
+    </ion-col>
+    <ion-col size="4" class="ion-no-padding">
+      <h5>562</h5>
+      <p>Following</p>
+    </ion-col>
+    <ion-col size="4" class="ion-no-padding">
+      <h5>12k</h5>
+      <p>Followers</p>
+    </ion-col>
+  </ion-row> -->
+  <!-- <ion-row>
+    <ion-col size="6" class="ion-padding-vertical">
+        <ion-button class="action-button" expand="block" fill="solid" color="primary">
+          <span>Follow</span>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6" class="ion-padding-vertical">
+      <ion-button class="action-button" expand="block"  fill="outline" color="primary">
+        <span>Message</span>
+    </ion-button>
+    </ion-col>
+  </ion-row> -->
+  <ion-row class="ion-padding-bottom">
+    <ion-col>
+      <ion-segment [(ngModel)]="valueType">
+				<ion-segment-button value="posts">
+					Posts
+				</ion-segment-button>
+			</ion-segment>
+    </ion-col>
+  </ion-row>
+  <div [ngSwitch]="valueType">
+    <!-- <ion-row *ngSwitchCase="'article'" class="ion-no-padding">
+      <ion-col size="6" *ngFor="let item of articles" class="ion-no-padding">
+        <app-small-blog-card
+        [text]="item.title"
+        [category]="item.category"
+        [date]="item.date"
+        [color]="item.color"
+        ></app-small-blog-card>
+      </ion-col>
+    </ion-row> -->
+    <ion-row *ngSwitchCase="'posts'">
+      <ion-col size="4" *ngFor="let post of posts">
+        <img class="image-element" [src]="post.image" alt="" [routerLink]="['/details', post.id]">
+      </ion-col>
+    </ion-row>
+  </div>
 
+</ion-grid>
 </ion-content>

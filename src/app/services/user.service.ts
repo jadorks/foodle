@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, BehaviorSubject, from, Subject } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { Plugins } from "@capacitor/core";
 const { Storage } = Plugins;
@@ -91,6 +92,49 @@ export class UserService {
         return data;
       })
     )
+    
+  }
+
+
+  public getCurrentUser(): Observable<any> {
+
+    const httpOptions = {
+      method: 'POST',
+      headers: new HttpHeaders({
+        Authorization: 'Token ' + this.token,
+      }),
+    };
+
+    return this.httpClient.get(this.baseUrl + '/api/posts/user/', httpOptions).pipe(
+
+      map((data: any) => {
+        console.log(data[0]);
+        return new User(data[0]);
+      })
+    )
+  }
+
+  public getOtherUser(id): Observable<any> {
+
+    return this.httpClient.get(this.baseUrl + '/api/posts/users/' + id).pipe(
+
+      map((data: any) => {
+        return new User(data);
+      })
+    )
+  }
+
+  public searchUser(search): Observable<any> {
+
+    return this.httpClient.get(this.baseUrl + '/api/posts/users/?search=' + search).pipe(
+      map((data: any) => {
+        return data.map((post) => {
+          let old = post;
+          old.date_posted = moment(new Date(Number(old.date_posted))).fromNow();
+          return new Post(old);
+        });
+      })
+    )
   }
 
   
@@ -100,9 +144,22 @@ export class UserService {
 
 export class User{
   id: any;
-  username: any;
-  products: any;
   email: any;
+  username: any;
+  posts: any;
+
+  constructor( values: Object = {} ){
+    Object.assign(this, values);
+  }
+}
+
+export class Post{
+  id: any;
+  user: any;
+  caption: any;
+  recipe: any;
+  image: any;
+  date_posted: any;
 
   constructor( values: Object = {} ){
     Object.assign(this, values);

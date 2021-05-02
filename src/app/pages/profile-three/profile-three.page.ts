@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { User, UserService } from "../../services/user.service";
+import { Post, PostService } from "../../services/post.service";
 
 @Component({
   selector: 'app-profile-three',
@@ -7,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileThreePage implements OnInit {
 
-  valueType = 'article';
+  user : any = {
+
+  }
+
+  valueType = 'posts';
+
+  posts = [];
 
   articles = [
     {
@@ -63,9 +72,28 @@ export class ProfileThreePage implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(private userService: UserService, private postService: PostService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.userService.getCurrentUser().subscribe(
+      (data: any) => {
+        this.user = data;
+      }
+    )
+
+    this.postService.currentUserPosts().subscribe(
+      (data: any) => {
+        this.posts = data;
+      }
+    )
+  }
+
+  async logOut(){
+    await this.userService.logout();
+    this.router.navigateByUrl('/', { replaceUrl: true });
   }
 
 }

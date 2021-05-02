@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'profile/:id',
-    loadChildren: () => import('./pages/profile-three/profile-three.module').then( m => m.ProfileThreePageModule ),
+    loadChildren: () => import('./pages/other-user/other-user.module').then( m => m.OtherUserPageModule),
     canLoad: [AuthGuard]
   },
   {

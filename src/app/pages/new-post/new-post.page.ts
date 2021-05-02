@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { ActionSheetController, AlertController, LoadingController, Platform } from "@ionic/angular";
 import { PostService, Post } from "../../services/post.service";
 import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
+import { Router } from "@angular/router";
 const { Camera } = Plugins;
 
 @Component({
@@ -21,9 +22,13 @@ export class NewPostPage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private plt: Platform,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private router: Router
     ) { 
       this.formData = new FormData();
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+      };
     }
 
   ngOnInit() {
@@ -59,6 +64,7 @@ export class NewPostPage implements OnInit {
         });
 
         await alert.present();
+        this.router.navigateByUrl("/tabs/home");
       },
       async (res) => {
         await loading.dismiss();

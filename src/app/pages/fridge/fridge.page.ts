@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Post, PostService } from "../../services/post.service";
 
 @Component({
   selector: 'app-fridge',
@@ -7,13 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FridgePage implements OnInit {
 
-  constructor() { }
+  posts = []
+
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
   }
 
-  public onSearchChange(ev){
-    console.log('searching');
+  public onSearchChange(e){
+    let value = e.detail.value;
+
+    this.postService.findPost(value).subscribe(
+      res => {
+        this.posts = res;
+      }
+    )
   }
 
 }
