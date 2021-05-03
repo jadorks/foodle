@@ -3,34 +3,38 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { ActionSheetController, AlertController, LoadingController, Platform } from "@ionic/angular";
 import { PostService, Post } from "../../services/post.service";
 import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 const { Camera } = Plugins;
 
 @Component({
-  selector: 'app-new-post',
-  templateUrl: './new-post.page.html',
-  styleUrls: ['./new-post.page.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.page.html',
+  styleUrls: ['./edit.page.scss'],
 })
-export class NewPostPage implements OnInit {
+export class EditPage implements OnInit {
 
   chosenImage: any = "";
   postForm: FormGroup;
   formData: FormData;
+  post: any= {};
+  id: any;
 
-  constructor(    
+  constructor(
     private postService: PostService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private loadingController: LoadingController,
     private plt: Platform,
     private actionSheetController: ActionSheetController,
+    private activatedRoute: ActivatedRoute,
     private router: Router
-    ) { 
-      this.formData = new FormData();
-      this.router.routeReuseStrategy.shouldReuseRoute = function() {
-        return false;
-      };
-    }
+  ) { 
+    this.formData = new FormData();
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+    this.id = this.activatedRoute.snapshot.paramMap.get('id')
+  }
 
   ngOnInit() {
     this.postForm = new FormGroup({
@@ -39,12 +43,14 @@ export class NewPostPage implements OnInit {
     });
   }
 
-  get caption(){
-    return this.postForm.get('caption');
-  }
-
-  get recipe(){
-    return this.postForm.get('recipe');
+  ionViewWillEnter(){
+    this.postService.getPost(this.id).subscribe(
+      result => {
+        this.post = result;
+        this.caption.setValue(this.post.caption);
+        this.recipe.setValue(this.post.recipe);
+      }
+    )
   }
 
   async submitPost(){
@@ -54,26 +60,26 @@ export class NewPostPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.postService.createPost(this.formData).subscribe(
+    this.postService.updatePost(this.post.id, this.formData).subscribe(
       async (res) => {
         await loading.dismiss();
         
         const alert = await this.alertController.create({
-          header: 'New Recipe Added',
-          message: 'Your recipe has been created',
+          header: 'Recipe Edited',
+          message: 'Your recipe has been edited',
           buttons: ['OK'],
         });
 
         await alert.present();
         this.clearForm();
-        this.router.navigateByUrl("/tabs/home");
+        this.router.navigateByUrl("/tabs/profile");
       },
       async (res) => {
         await loading.dismiss();
 
         const alert = await this.alertController.create({
           header: 'Failed',
-          message: 'Failed to create recipe',
+          message: 'Failed to edit recipe',
           buttons: ['OK'],
         });
 
@@ -96,15 +102,13 @@ export class NewPostPage implements OnInit {
     if (image){
       // convert base64 image to blob
       let blob = this.b64toBlob(image.base64String)
-      console.log(image.base64String);
-
-      this.chosenImage = "data:image/png;base64, " + image.base64String;
       
       //Generate a fake filename
       let name =Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 10);
       this.formData.append('image', blob, name+`.${image.format}`);
     }
   }
+
 
   public b64toBlob(b64Data, contentType = '', sliceSize = 512) {
     const byteCharacters = atob(b64Data);
@@ -126,8 +130,17 @@ export class NewPostPage implements OnInit {
     return blob;
   }
 
+  get caption(){
+    return this.postForm.get('caption');
+  }
+
+  get recipe(){
+    return this.postForm.get('recipe');
+  }
+
   async clearForm(){
     this.postForm.reset();
   }
+
 
 }

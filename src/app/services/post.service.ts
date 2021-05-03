@@ -64,6 +64,30 @@ export class PostService {
     )
   }
 
+  public updatePost(id: any, formData): Observable<any> {
+    const httpOptions = {
+      method: 'POST',
+      headers: new HttpHeaders({
+        Authorization: 'Token ' + this.token,
+      }),
+    };
+
+    return this.http.put(this.baseURL + '/update/' + id + '/', formData, httpOptions).pipe(
+      map((data): any => {
+        return data;
+      })
+    )
+  }
+
+  public deletePost(id:any): Observable<any> {
+
+    return this.http.delete(this.baseURL + '/delete/' + id + '/').pipe(
+      map((data): any => {
+        return data;
+      })
+    )
+  }
+
   public LikePost(id: any, action: any): Observable<any>{
 
     let interaction = new FormData();

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AlertController, LoadingController } from '@ionic/angular';
 import { PostService, Post } from "../../services/post.service";
+import { User, UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-article-two',
@@ -9,16 +11,17 @@ import { PostService, Post } from "../../services/post.service";
 })
 export class ArticleTwoPage implements OnInit {
 
+  isOwner: boolean = true;
+
   date: any = "";
 
   id : any = "";
 
-  post: any = {}
+  post: any = {};
 
-  background = {
-    backgroundImage:
-      'url(http://127.0.0.1:8000/media/post_pics/9p69umou7lozxg3wk2t.png)',
-  };
+  postUser: any = {};
+
+  currentUser: any = {};
 
   article = {
     category: 'Technology',
@@ -62,7 +65,7 @@ export class ArticleTwoPage implements OnInit {
     },
   ];
 
-  constructor(private activatedRoute: ActivatedRoute, private postService: PostService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private postService: PostService, private alertController: AlertController, private loadingController: LoadingController, private userService: UserService) {}
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -73,7 +76,20 @@ export class ArticleTwoPage implements OnInit {
     this.postService.getPost(this.id).subscribe(
       (data: any) => {
         this.post = data;
-        this.date = this.convertDate(data.date_posted)
+        this.date = this.convertDate(data.date_posted);
+        this.postUser = data.user;
+
+        this.userService.getCurrentUser().subscribe(
+          result => {
+            this.currentUser = result.username;
+            if(this.currentUser != this.postUser){
+              console.log("You are not owner");
+              this.isOwner = false;
+
+            }
+          }
+        )
+
       }
     )
   }
@@ -94,6 +110,42 @@ export class ArticleTwoPage implements OnInit {
     this.postService.LikePost(this.id, 'unlike').subscribe(
       (data: any) => {
         console.log(data);
+      }
+    )
+  }
+
+  async deletePost(id){
+
+    const loading = await this.loadingController.create();
+    await loading.present(); 
+
+    this.postService.deletePost(id).subscribe(
+      async (res) => {
+        await loading.dismiss(); 
+        
+        const alert = await this.alertController.create({
+          header: 'Success!',
+          message: 'Recipe deleted successfully',
+          buttons: [{
+            text: 'OK',
+            handler: (data) => {
+               this.router.navigateByUrl('/tabs/home');
+            }
+          }]
+        });
+          await alert.present();
+      },
+
+      async (res) => {
+        console.log(res);
+        await loading.dismiss();
+        const alert = await this.alertController.create({
+          header: 'Failed',
+          message: 'Failed to delete recipe',
+          buttons: ['OK']
+        });
+
+        await alert.present();
       }
     )
   }

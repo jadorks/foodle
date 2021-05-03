@@ -228,6 +228,10 @@ const routes: Routes = [
     path: 'other-user',
     loadChildren: () => import('./pages/other-user/other-user.module').then( m => m.OtherUserPageModule)
   },
+  {
+    path: 'edit/:id',
+    loadChildren: () => import('./pages/edit/edit.module').then( m => m.EditPageModule)
+  },
 ];
 
 @NgModule({

@@ -43,40 +43,26 @@
           ></ion-icon>
         </ion-button>
       </ion-item>
-      <!-- <div class="article-footer">
+      <div class="article-footer" *ngIf="isOwner">
         <div>
           <ul>
             <li>
-              <ion-item lines="none" (click)="likePost()">
-                <ion-icon color="medium" name="heart-outline"></ion-icon>
-                <ion-label>200</ion-label>
-              </ion-item>
+              <ion-button 
+              color="success"
+              [routerLink]="['edit', post.id]">
+                <ion-icon slot="icon-only" name="pencil"></ion-icon>
+              </ion-button>
             </li>
             <li>
-              <ion-item lines="none">
-                <ion-icon color="medium" name="chatbubble-outline"></ion-icon>
-                <ion-label>300</ion-label>
-              </ion-item>
-            </li>
-            <li>
-              <ion-item lines="none">
-                <ion-icon color="medium" name="bookmark-outline"></ion-icon>
-                <ion-label>400</ion-label>
-              </ion-item>
+              <ion-button 
+              color="danger"
+              (click)="deletePost(post.id)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
             </li>
           </ul>
         </div>
-        <ion-button
-          class="circle-btn"
-          slot="end"
-          fill="clear"
-          size="small"
-          shape="round"
-          color="primary"
-        >
-          <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
-        </ion-button>
-      </div> -->
+      </div>
     </ion-col>
   </ion-row>
   <ion-row>
