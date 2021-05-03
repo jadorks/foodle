@@ -13,5 +13,6 @@
       "androidSplashResourceName": "splash"
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh"
 }
