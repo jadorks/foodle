@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Foodle</string>
+    <string name="title_activity_main">Foodle</string>
+    <string name="package_name">com.jeffrey.foodle</string>
+    <string name="custom_url_scheme">com.jeffrey.foodle</string>
+</resources>

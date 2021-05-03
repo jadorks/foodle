@@ -15,7 +15,7 @@ const TOKEN_KEY = 'token';
 export class PostService {
 
   token = '';
-  baseURL = "http://127.0.0.1:8000/api/posts";
+  baseURL = "https://foodlerest.herokuapp.com/api/posts";
 
 
   constructor(private http: HttpClient, private userService: UserService) { 

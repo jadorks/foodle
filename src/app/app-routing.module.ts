@@ -148,10 +148,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
   {
-    path: 'shopping-cart',
-    loadChildren: () => import('./pages/shopping-cart/shopping-cart.module').then( m => m.ShoppingCartPageModule)
-  },
-  {
     path: 'product-detail',
     loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
