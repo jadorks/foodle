@@ -19,21 +19,14 @@ export class PostService {
 
 
   constructor(private http: HttpClient, private userService: UserService) { 
-    this.loadToken();
   }
 
-  async loadToken(){
-    const tk = await Storage.get({ key: TOKEN_KEY });
-    if(tk && tk.value){
-      this.token = tk.value;
-    }
-  }
 
   public createPost(formData){
     const httpOptions = {
       method: 'POST',
       headers: new HttpHeaders({
-        Authorization: 'Token ' + this.token,
+        Authorization: 'Token ' + this.userService.token,
       }),
     };
 
@@ -68,7 +61,7 @@ export class PostService {
     const httpOptions = {
       method: 'POST',
       headers: new HttpHeaders({
-        Authorization: 'Token ' + this.token,
+        Authorization: 'Token ' + this.userService.token,
       }),
     };
 
@@ -111,10 +104,11 @@ export class PostService {
   }
 
   public currentUserPosts(){
+    console.log(this.userService.token);
     const httpOptions = {
       method: 'POST',
       headers: new HttpHeaders({
-        Authorization: 'Token ' + this.token,
+        Authorization: 'Token ' + this.userService.token,
       }),
     };
 
@@ -131,7 +125,7 @@ export class PostService {
 
   public otherUserPosts(id){
 
-    return this.http.get(this.baseURL + '/users/' + id).pipe(
+    return this.http.get(this.baseURL + '/users/posts/' + id + '/').pipe(
       map((data:any) => {
         return data.map((post) => {
           let old = post;

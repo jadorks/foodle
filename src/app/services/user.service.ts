@@ -77,6 +77,12 @@ export class UserService {
   }
 
   public logout(): Promise<void>{
+    const httpOptions = {
+      method: 'POST',
+      headers: new HttpHeaders({
+        Authorization: 'Token ' + this.token,
+      }),
+    };
     this.isAuthenticated.next(false);
     return Storage.remove({key: TOKEN_KEY});
   }

@@ -75,9 +75,6 @@ export class ProfileThreePage implements OnInit {
   constructor(private userService: UserService, private postService: PostService, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter(){
     this.userService.getCurrentUser().subscribe(
       (data: any) => {
         this.user = data;
@@ -91,9 +88,18 @@ export class ProfileThreePage implements OnInit {
     )
   }
 
+  ionViewWillEnter(){
+  }
+
   async logOut(){
-    await this.userService.logout();
-    this.router.navigateByUrl('/', { replaceUrl: true });
+    await this.userService.logout().then(
+      () => 
+      {
+        this.router.navigateByUrl('/', { replaceUrl: true });
+        console.log(this.userService.token);
+      }
+    );
+    // this.router.navigateByUrl('/', { replaceUrl: true });
   }
 
 }
